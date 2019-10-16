@@ -56,7 +56,7 @@ public class StudentSummary extends Activity {
         students.add(student);
 
         courseEnrollments = new ArrayList<CourseEnrollment_>();
-        student = new Student_("OtherPal", "Corgi", 1888293);
+        student = new Student_("OtherPal", "CorgiPup", 1483920);
         courseEnrollments.add(new CourseEnrollment_("CPSC440", "B"));
         courseEnrollments.add(new CourseEnrollment_("CPSC335", "B"));
         courseEnrollments.add(new CourseEnrollment_("CPSC411", "C"));

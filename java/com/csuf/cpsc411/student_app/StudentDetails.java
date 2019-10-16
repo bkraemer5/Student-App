@@ -1,6 +1,7 @@
 package com.csuf.cpsc411.student_app;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
@@ -39,10 +40,8 @@ public class StudentDetails extends Activity {
 
         EditText editView = findViewById(R.id.p_first_name_id);
         editView.setText(pObj.getFirstName());
-        editView.setEnabled(false); // make it read only (not editable)
         editView = findViewById(R.id.p_last_name_id);
         editView.setText(pObj.getLastName());
-        editView.setEnabled(false);
         //
         ListView lv = findViewById(R.id.course_list_id);
 
@@ -63,8 +62,8 @@ public class StudentDetails extends Activity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                
-
+                Intent intent = new Intent(view.getContext(), StudentSummary.class);
+                view.getContext().startActivity(intent);
             }
         });
     }
