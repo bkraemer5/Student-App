@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:text="STUDENT DATA"
         android:textColor="#000000"
-        android:textSize="12pt"
+        android:textSize="10pt"
         android:gravity="center"
         android:background="@color/colorPrimary">
     </TextView>

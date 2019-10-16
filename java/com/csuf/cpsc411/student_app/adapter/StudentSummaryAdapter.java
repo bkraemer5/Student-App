@@ -60,9 +60,6 @@ public class StudentSummaryAdapter extends BaseAdapter {
                         Intent intent = new Intent(view.getContext(), StudentDetails.class);
                         intent.putExtra("StudentIndex", ((Integer)view.getTag()).intValue());
                         view.getContext().startActivity(intent);
-
-
-
                     }
                 }
         );

@@ -1,22 +1,25 @@
 package com.csuf.cpsc411.student_app;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.csuf.cpsc411.student_app.model.StudentDB_;
 import com.csuf.cpsc411.student_app.model.Student_;
 
-public class StudentDetails extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class StudentDetails extends Activity {
 
     protected Menu detailMenu;
-    //protected int personIndex;
+    protected int studentIndex;
     protected Student_ pObj;
 
     @Override
@@ -24,16 +27,16 @@ public class StudentDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_details);
 
-        int personIndex = getIntent().getIntExtra("PersonIndex", 0);
+        studentIndex = getIntent().getIntExtra("StudentIndex", 0);
         TextView tv = findViewById(R.id.display_string_id);
+        pObj = StudentDB_.getOurInstance().getStudentList().get(studentIndex);
         // display the person index
+        int studentCWID = pObj.getCWID();
         String origStr = (String) tv.getText();
-        tv.setText(origStr + personIndex);
+        tv.setText(origStr + studentCWID);
         tv.setGravity(Gravity.CENTER);
         tv.setTextSize(15);
-        //
-        pObj = StudentDB_.getOurInstance().getStudentList().get(personIndex);
-        //
+
         EditText editView = findViewById(R.id.p_first_name_id);
         editView.setText(pObj.getFirstName());
         editView.setEnabled(false); // make it read only (not editable)
@@ -41,52 +44,29 @@ public class StudentDetails extends AppCompatActivity {
         editView.setText(pObj.getLastName());
         editView.setEnabled(false);
         //
+        ListView lv = findViewById(R.id.course_list_id);
 
-    }
-    /*
-    Button button = (Button)findViewById(R.id.button);
-    button.setOnClickListener(new View.OnClickListener {
-        public void onClick(View v) {
-            // Do something in response to button click
+        int sizeOfCourseList = pObj.getCourseEnrollments().size();
+        ArrayList<String> list = new ArrayList<String>();
+        for (int i = 0; i < sizeOfCourseList; i++) {
+            list.add("Course: " + pObj.getCourseEnrollments().get(i).getCourseID() +
+                    "    Grade: " + pObj.getCourseEnrollments().get(i).getGrade());
         }
-    });
-     */
 
-    /*
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // custom menu inflation
-        getMenuInflater().inflate(R.menu.detail_screen_menu, menu);
-        menu.findItem(R.id.action_edit).setVisible(true);
-        menu.findItem(R.id.action_done).setVisible(false);
-        detailMenu = menu;
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+                this, android.R.layout.simple_list_item_1, list
+        );
+        lv.setAdapter(arrayAdapter);
 
-        return super.onCreateOptionsMenu(menu);
+
+        View button = findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                
+
+            }
+        });
     }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.action_edit) {
-            EditText editView = findViewById(R.id.p_first_name_id);
-            editView.setEnabled(true); // make it read only (not editable)
-            editView = findViewById(R.id.p_last_name_id);
-            editView.setEnabled(true);
-            item.setVisible(false);
-            detailMenu.findItem(R.id.action_done).setVisible(true);
-        }
-        else if (item.getItemId() == R.id.action_done) {
-            EditText editView = findViewById(R.id.p_first_name_id);
-            pObj.setFirstName(editView.getText().toString());
-            editView.setEnabled(false);
-            editView = findViewById(R.id.p_last_name_id);
-            pObj.setLastName(editView.getText().toString());
-            editView.setEnabled(false);
-            item.setVisible(false);
-            detailMenu.findItem(R.id.action_edit).setVisible(true);
-
-        }
-        return super.onOptionsItemSelected(item);
-    }
-     */
 
 }
