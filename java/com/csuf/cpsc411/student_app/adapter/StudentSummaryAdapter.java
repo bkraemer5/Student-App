@@ -6,13 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.csuf.cpsc411.student_app.R;
 import com.csuf.cpsc411.student_app.StudentDetails;
 import com.csuf.cpsc411.student_app.model.StudentDB_;
 import com.csuf.cpsc411.student_app.model.Student_;
 
+// ADAPTER class for StudentSummary Activity
 public class StudentSummaryAdapter extends BaseAdapter {
     @Override
     public int getCount() {
@@ -34,35 +34,47 @@ public class StudentSummaryAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
+
+
+        // View we are going to use
         View row_view;
 
+
+        // Create new view
         if (view == null) {
             LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
             row_view = inflater.inflate(R.layout.student_rows, viewGroup, false);
         }
+
+        // Use current view
         else row_view = view;
-        // make student_row layout
+
+
+        // Generate student_row layout
         Student_ s = StudentDB_.getOurInstance().getStudentList().get(i);
         ((TextView) row_view.findViewById(R.id.first_name)).setText(s.getFirstName());
         ((TextView) row_view.findViewById(R.id.last_name)).setText(s.getLastName());
 
+
+        // Sets a tag for each Student Item
         row_view.setTag(new Integer(i));
 
+
+        // Generates instruction for when a Student Item is clicked on
         row_view.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Toast.makeText(view.getContext(), "Object was touched by user",
-                                Toast.LENGTH_SHORT).show();
 
-                        // Page Navigation
-
+                        // Page Navigation to StudentDetails Activity
                         Intent intent = new Intent(view.getContext(), StudentDetails.class);
                         intent.putExtra("StudentIndex", ((Integer)view.getTag()).intValue());
                         view.getContext().startActivity(intent);
+
                     }
                 }
         );
+
         return row_view;
     }
 }

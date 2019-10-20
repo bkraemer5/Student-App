@@ -19,32 +19,50 @@ import java.util.ArrayList;
 
 public class StudentDetails extends Activity {
 
-    protected Menu detailMenu;
-    protected int studentIndex;
-    protected Student_ pObj;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        // The Layout file we will use for our Activity
         setContentView(R.layout.activity_student_details);
 
-        studentIndex = getIntent().getIntExtra("StudentIndex", 0);
+
+        // Gets the Item No. of the Student that was clicked on
+        int studentIndex = getIntent().getIntExtra("StudentIndex", 0);
+
+
+        // Grabs Instance of Student by finding the student at studentIndex
+        Student_ pObj = StudentDB_.getOurInstance().getStudentList().get(studentIndex);
+
+
+        // Grabs TextView that displays Student CWID
         TextView tv = findViewById(R.id.display_string_id);
-        pObj = StudentDB_.getOurInstance().getStudentList().get(studentIndex);
-        // display the person index
+
+
+        // display add student's CWID to original text
         int studentCWID = pObj.getCWID();
         String origStr = (String) tv.getText();
         tv.setText(origStr + studentCWID);
         tv.setGravity(Gravity.CENTER);
         tv.setTextSize(15);
 
+
+        // set EditText view to display the student's first name
         EditText editView = findViewById(R.id.p_first_name_id);
         editView.setText(pObj.getFirstName());
+
+
+        // set EditText view to display the student's last name
         editView = findViewById(R.id.p_last_name_id);
         editView.setText(pObj.getLastName());
-        //
+
+
+        // creates a ListView for student courses
         ListView lv = findViewById(R.id.course_list_id);
 
+
+        // An array that displays the Course and Grade of the student
         int sizeOfCourseList = pObj.getCourseEnrollments().size();
         ArrayList<String> list = new ArrayList<String>();
         for (int i = 0; i < sizeOfCourseList; i++) {
@@ -52,12 +70,18 @@ public class StudentDetails extends Activity {
                     "    Grade: " + pObj.getCourseEnrollments().get(i).getGrade());
         }
 
+
+        // An adapter to arrange the list
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
                 this, android.R.layout.simple_list_item_1, list
         );
+
+
+        // applies the adapter to the course_list ListView
         lv.setAdapter(arrayAdapter);
 
 
+        // sets the click activity for the button to return to the StudentSummary page
         View button = findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
