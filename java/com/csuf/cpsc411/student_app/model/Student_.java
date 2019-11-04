@@ -7,7 +7,7 @@ public class Student_ {
     // member variables for Student
     protected String mFirstName;
     protected String mLastName;
-    protected int mCWID;
+    protected String mCWID;
 
 
     // Array for the Courses the Student is taking
@@ -15,7 +15,7 @@ public class Student_ {
 
 
     // Student Constructor
-    public Student_(String fname, String lname, int cwid ) {
+    public Student_(String fname, String lname, String cwid ) {
         mFirstName = fname;
         mLastName = lname;
         mCWID = cwid;
@@ -41,10 +41,10 @@ public class Student_ {
 
 
     // Getter + Setter for member variable: CWID
-    public int getCWID() {
+    public String getCWID() {
         return mCWID;
     }
-    public void setCWID(int CWID) {
+    public void setCWID(String CWID) {
         mCWID = CWID;
     }
 
