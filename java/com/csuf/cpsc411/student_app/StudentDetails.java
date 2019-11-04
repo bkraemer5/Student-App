@@ -125,7 +125,7 @@ public class StudentDetails extends AppCompatActivity {
                     else {
                         Toast.makeText(view.getContext(), "Invalid inputs", Toast.LENGTH_SHORT).show();
                     }
-                    
+
                     courseEdit.setVisibility(View.GONE);
                     lv.setVisibility(View.VISIBLE);
                 }
